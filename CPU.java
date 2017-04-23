@@ -129,6 +129,13 @@ public class CPU {
 			cont_unity.div(instruct);
 			break;
 
+		case "JUMP":
+			if(cont_unity.jump(instruct) >= 0){
+				pc = cont_unity.jump(instruct);
+				System.out.println("\t\t\tSalto: Instrução " + pc);
+			}
+			break;
+
 		case "JUMPZ":
 			if(cont_unity.jumpz(instruct) >= 0){
 				pc = cont_unity.jumpz(instruct);

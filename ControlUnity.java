@@ -1,11 +1,11 @@
 public class ControlUnity {
 	
-	/**Registradores e mem√≥ria de dados e instru√ß√µes(Harvard)**/
-	private String[] inst_mem; // Mem√≥ria de instru√ß√µes
+	/**Registradores e memÛria de dados e instruÁıes(Harvard)**/
+	private String[] inst_mem; // MemÛria de instruÁıes
 	private int[] data_mem, regs; // Array de registradores e de memoria de dados
-	private boolean[] used_regs, used_mem; // Array que indica quais registradores e espa√ßo de mem√≥ria que est√£o sendo armazenando algum dado
+	private boolean[] used_regs, used_mem; // Array que indica quais registradores e espaÁo de memÛria que est„o sendo armazenando algum dado
 	
-	/**Flags usadas por opera√ß√µes de desvios**/
+	/**Flags usadas por operaÁıes de desvios**/
 	private boolean fz, fp, fn; //Flags, fz (zero), fp (positivo), fn (negativo)
 	
 	public ControlUnity(String[] inst_mem, int[] data_mem, int[] regs, boolean[] used_regs, boolean[] used_mem){
@@ -16,7 +16,7 @@ public class ControlUnity {
 		this.used_mem = used_mem;
 	}
 	
-	/**Opera√ß√£o de armazenamento**/
+	/**OperaÁ„o de armazenamento**/
 	
 	public void store(String[] tokens){
 
@@ -24,17 +24,17 @@ public class ControlUnity {
 		int reg = Integer.parseInt(tokens[1].substring(1));
 		
 		if(reg > regs.length-1 && used_regs[reg] == false){
-			System.out.println("\t\t\tErro: Registrador inv√°lido");
+			System.out.println("\t\t\tErro: Registrador inv·lido");
 			return;
 		}
 		
-		/**Verifica se o par√¢metro √© um endere√ßo v√°lido (come√ßa com X)**/
+		/**Verifica se o par‚metro È um endereÁo v·lido (comeÁa com X)**/
 		if(tokens[2].charAt(0) != 'M'){
-			System.out.println("\t\t\tErro: Endere√ßo inv√°lido");
+			System.out.println("\t\t\tErro: EndereÁo inv·lido");
 			return;
 		}
 		
-		/**Execu√ß√£o da opera√ß√£o de armazenamento**/
+		/**ExecuÁ„o da operaÁ„o de armazenamento**/
 		
 		int dest = Integer.parseInt(tokens[2].substring(1));
 		data_mem[dest] = regs[reg];
@@ -43,7 +43,7 @@ public class ControlUnity {
 		
 	}
 	
-	/**Opera√ß√£o de carga**/
+	/**OperaÁ„o de carga**/
 	
 	public void load(String[] tokens){
 		
@@ -51,7 +51,7 @@ public class ControlUnity {
 		int val, reg = Integer.parseInt(tokens[1].substring(1));
 		
 		if(reg > regs.length-1){
-			System.out.println("\t\t\tErro: Registrador inv√°lido");
+			System.out.println("\t\t\tErro: Registrador inv·lido");
 			return;
 		}
 		
@@ -62,18 +62,18 @@ public class ControlUnity {
 			return;
 		}
 		
-		/**Execu√ß√£o da opera√ß√£o de carga**/
+		/**ExecuÁ„o da operaÁ„o de carga**/
 		
 		regs[reg] = val;
 		used_regs[reg] = true;
 		System.out.println("\t\t\tResultado: " + tokens[1] + " = " + regs[reg]);
 	}
 	
-	/**Opera√ß√£o de adi√ß√£o**/
+	/**OperaÁ„o de adiÁ„o**/
 	
 	public void add(String[] tokens){
 		
-		if(tokens.length == 3){	//Opera√ß√£o de adi√ß√£o que envolve 1 registradores e um endere√ßo, ou um valor inteiro, ou outro registrador
+		if(tokens.length == 3){	//OperaÁ„o de adiÁ„o que envolve 1 registradores e um endereÁo, ou um valor inteiro, ou outro registrador
 			
 			System.out.println("\t\t\tADD " + tokens[1] + " " + tokens[2]);
 			int reg, op2;
@@ -86,20 +86,20 @@ public class ControlUnity {
 				return;
 			}
 			
-			/**Execu√ß√£o da opera√ß√£o aritm√©tica**/
+			/**ExecuÁ„o da operaÁ„o aritmÈtica**/
 						
 			regs[reg] = regs[reg] + op2;
 			set_flags(regs[reg]);
 			
 			System.out.println("\t\t\tResultado: " + regs[reg]);
 			
-		}else if(tokens.length == 4){ //Opera√ß√£o de adi√ß√£o que envolve 3 registradores, 2 para efetuar a soma e um para armazenar o resultado
+		}else if(tokens.length == 4){ //OperaÁ„o de adiÁ„o que envolve 3 registradores, 2 para efetuar a soma e um para armazenar o resultado
 			
 			System.out.println("\t\t\tADD " + tokens[1] + " " + tokens[2] + " " + tokens[3]);
 			int dest = Integer.parseInt(tokens[1].substring(1)), op1, op2;
 			
 			if(dest > regs.length-1){
-				System.out.println("\t\t\tErro: Registrador inv√°lido");
+				System.out.println("\t\t\tErro: Registrador inv·lido");
 				return;
 			}
 			
@@ -111,22 +111,22 @@ public class ControlUnity {
 				return;
 			}
 			
-			/**Execu√ß√£o da opera√ß√£o aritm√©tica**/
+			/**ExecuÁ„o da operaÁ„o aritmÈtica**/
 			
 			regs[dest] = op1 + op2;
 			used_regs[dest] = true;
 			set_flags(regs[dest]);
 			System.out.println("\t\t\tResultado: " + regs[dest]);
 		}else{
-			System.out.println("\t\t\tErro: N√∫mero de argumentos inv√°lido");
+			System.out.println("\t\t\tErro: N˙mero de argumentos inv·lido");
 		}
 	}
 	
-	/**Opera√ß√£o de subtra√ß√£o**/
+	/**OperaÁ„o de subtraÁ„o**/
 	
 	public void sub(String[] tokens){
 	
-		if(tokens.length == 3){	//Opera√ß√£o de subtra√ß√£o que envolve 1 registradores e um endere√ßo, ou um valor inteiro, ou outro registrador
+		if(tokens.length == 3){	//OperaÁ„o de subtraÁ„o que envolve 1 registradores e um endereÁo, ou um valor inteiro, ou outro registrador
 			
 			System.out.println("\t\t\tSUB " + tokens[1] + " " + tokens[2]);
 			int reg, op2;
@@ -139,7 +139,7 @@ public class ControlUnity {
 				return;
 			}	
 			
-			/**Execu√ß√£o da opera√ß√£o aritm√©tica**/
+			/**ExecuÁ„o da operaÁ„o aritmÈtica**/
 			
 			regs[reg] = regs[reg] - op2;
 			set_flags(regs[reg]);
@@ -151,7 +151,7 @@ public class ControlUnity {
 			int dest = Integer.parseInt(tokens[1].substring(1)), op1, op2;
 			
 			if(dest > regs.length-1){
-				System.out.println("\t\t\tErro: Registrador inv√°lido");
+				System.out.println("\t\t\tErro: Registrador inv·lido");
 				return;
 			}
 			
@@ -163,7 +163,7 @@ public class ControlUnity {
 				return;
 			}
 			
-			/**Execu√ß√£o da opera√ß√£o aritm√©tica**/
+			/**ExecuÁ„o da operaÁ„o aritmÈtica**/
 			
 			regs[dest] = op1 - op2;
 			used_regs[dest] = true;
@@ -171,11 +171,11 @@ public class ControlUnity {
 			System.out.println("\t\t\tResultado: " + regs[dest]);
 			
 		}else{
-			System.out.println("\t\t\tErro: N√∫mero de argumentos inv√°lido");
+			System.out.println("\t\t\tErro: N˙mero de argumentos inv·lido");
 		}
 	}
 	
-	/**Opera√ß√£o de multiplica√ß√£o**/
+	/**OperaÁ„o de multiplicaÁ„o**/
 	
 	public void mpy(String[] tokens){
 
@@ -192,7 +192,7 @@ public class ControlUnity {
 				return;
 			}
 			
-			/**Execu√ß√£o da opera√ß√£o aritm√©tica**/
+			/**ExecuÁ„o da operaÁ„o aritmÈtica**/
 			
 			regs[reg] = regs[reg] * op2;
 			set_flags(regs[reg]);
@@ -204,7 +204,7 @@ public class ControlUnity {
 			int dest = Integer.parseInt(tokens[1].substring(1)), op1, op2;
 			
 			if(dest > regs.length-1){
-				System.out.println("\t\t\tErro: Registrador inv√°lido");
+				System.out.println("\t\t\tErro: Registrador inv·lido");
 				return;
 			}
 			
@@ -216,7 +216,7 @@ public class ControlUnity {
 				return;
 			}
 			
-			/**Execu√ß√£o da opera√ß√£o aritm√©tica**/
+			/**ExecuÁ„o da operaÁ„o aritmÈtica**/
 			
 			regs[dest] = op1 * op2;
 			used_regs[dest] = true;
@@ -224,11 +224,11 @@ public class ControlUnity {
 			System.out.println("\t\t\tResultado: " + regs[dest]);
 			
 		}else{
-			System.out.println("\t\t\tErro: N√∫mero de argumentos inv√°lido");
+			System.out.println("\t\t\tErro: N˙mero de argumentos inv·lido");
 		}
 	}
 	
-	/**Opera√ß√£o de divis√£o**/
+	/**OperaÁ„o de divis„o**/
 	
 	public void div(String[] tokens){
 	
@@ -250,7 +250,7 @@ public class ControlUnity {
 				return;
 			}				
 			
-			/**Execu√ß√£o da opera√ß√£o aritm√©tica**/
+			/**ExecuÁ„o da operaÁ„o aritmÈtica**/
 			
 			regs[reg] = regs[reg]/op2;
 			set_flags(regs[reg]);
@@ -262,7 +262,7 @@ public class ControlUnity {
 			int dest = Integer.parseInt(tokens[1].substring(1)), op1, op2;
 			
 			if(dest > regs.length-1){
-				System.out.println("\t\t\tErro: Registrador inv√°lido");
+				System.out.println("\t\t\tErro: Registrador inv·lido");
 				return;
 			}
 			
@@ -279,14 +279,14 @@ public class ControlUnity {
 				return;
 			}
 			
-			/**Execu√ß√£o da opera√ß√£o aritm√©tica**/
+			/**ExecuÁ„o da operaÁ„o aritmÈtica**/
 			
 			regs[dest] = op1/op2;
 			used_regs[dest] = true;
 			set_flags(regs[dest]);
 			System.out.println("\t\t\tResultado: " + regs[dest]);
 		}else{
-			System.out.println("\t\t\tErro: N√∫mero de argumentos inv√°lido");
+			System.out.println("\t\t\tErro: N˙mero de argumentos inv·lido");
 		}
 	}
 	
@@ -297,7 +297,7 @@ public class ControlUnity {
 		
 		/**Verifica se o primeiro argumento(reg) possui algum dado armazenado**/
 		if(reg > regs.length-1 && used_regs[reg] == false){
-			throw new Exception("\t\t\tErro: Registrador inv√°lido");
+			throw new Exception("\t\t\tErro: Registrador inv·lido");
 		}
 		
 		return reg;
@@ -307,14 +307,14 @@ public class ControlUnity {
 	public int verify_operand(String operand) throws Exception{
 		
 		int op;
-		/**Verifica se o segundo argumento √© um endere√ßo, um registrador ou uma valor fixo**/
-		if(operand.charAt(0) == 'M'){ //Caso seja um endere√ßo na memoria de dados	
-			op = Integer.parseInt(operand.substring(1)); //Pega o valor do endere√ßo
+		/**Verifica se o segundo argumento È um endereÁo, um registrador ou uma valor fixo**/
+		if(operand.charAt(0) == 'M'){ //Caso seja um endereÁo na memoria de dados	
+			op = Integer.parseInt(operand.substring(1)); //Pega o valor do endereÁo
 			
-			if(used_mem[op]) //Verifica se o endere√ßo possui algum dado
+			if(used_mem[op]) //Verifica se o endereÁo possui algum dado
 				op = data_mem[op];
 			else
-				throw new Exception("\t\t\tErro: Endere√ßo da mem√≥ria n√£o utilizado");
+				throw new Exception("\t\t\tErro: EndereÁo da memÛria n„o utilizado");
 			
 			
 		}else if(operand.charAt(0) == 'R'){ //Caso seja um registrador
@@ -323,7 +323,7 @@ public class ControlUnity {
 			if(op < regs.length && used_regs[op]) //Verifica se o registrador possui algum valor armazenado
 				op = regs[op];
 			else
-				throw new Exception("\t\t\tErro: Registrador inv√°lido");
+				throw new Exception("\t\t\tErro: Registrador inv·lido");
 			
 			
 		}else{
@@ -334,7 +334,7 @@ public class ControlUnity {
 		
 	}
 	
-	/**Seta as flags para opera√ß√µes de desvios**/
+	/**Seta as flags para operaÁıes de desvios**/
 	
 	public void set_flags(int result){
 	
@@ -352,49 +352,61 @@ public class ControlUnity {
 			fp = false;
 		}
 	}
+
+	/**Desvio incondicional**/
+	public int jump(String[] tokens){
+		
+		if(tokens[1].charAt(0) == 'I')//Verifica se o endereÁo da instruÁao È v·lido
+			if(Integer.parseInt(tokens[1].substring(1)) < inst_mem.length) //Verifica se o endereÁo da instruÁao esta dentro do programa
+				return Integer.parseInt(tokens[1].substring(1)); //Retorna prÛxima instruÁ„o
+		
+		System.out.println("\t\t\tN„o ocorre desvio");
+		
+		return -1; //N„o ocorre desvio
+	}
 	
-	/**Desvio (JUMP) quando ultima opera√ß√£o aritm√©tica for igual a 0**/
+	/**Desvio (JUMP) quando ultima operaÁ„o aritmÈtica for igual a 0**/
 	public int jumpz(String[] tokens){
 		
 		if(fz){ //Verifica a flag
-			if(tokens[1].charAt(0) == 'I')//Verifica se o endere√ßo da instru√ßao √© v√°lido
-				if(Integer.parseInt(tokens[1].substring(1)) < inst_mem.length) //Verifica se o endere√ßo da instru√ßao esta dentro do programa
-					return Integer.parseInt(tokens[1].substring(1)); //Retorna pr√≥xima instru√ß√£o
+			if(tokens[1].charAt(0) == 'I')//Verifica se o endereÁo da instruÁao È v·lido
+				if(Integer.parseInt(tokens[1].substring(1)) < inst_mem.length) //Verifica se o endereÁo da instruÁao esta dentro do programa
+					return Integer.parseInt(tokens[1].substring(1)); //Retorna prÛxima instruÁ„o
 		}
 		
-		System.out.println("\t\t\tN√£o ocorre desvio");
+		System.out.println("\t\t\tN„o ocorre desvio");
 		
-		return -1; //N√£o ocorre desvio
+		return -1; //N„o ocorre desvio
 	}
 	
-	/**Desvio (JUMP) quando ultima opera√ß√£o aritm√©tica for igual a 0**/
+	/**Desvio (JUMP) quando ultima operaÁ„o aritmÈtica for igual a 0**/
 	public int jumpn(String[] tokens){
 		
 		if(fn){ //Verifica a flag
-			if(tokens[1].charAt(0) == 'I')//Verifica se o endere√ßo da instru√ßao √© v√°lido
-				if(Integer.parseInt(tokens[1].substring(1)) < inst_mem.length) //Verifica se o endere√ßo da instru√ßao esta dentro do programa
-					return Integer.parseInt(tokens[1].substring(1)); //Retorna pr√≥xima instru√ß√£o
+			if(tokens[1].charAt(0) == 'I')//Verifica se o endereÁo da instruÁao È v·lido
+				if(Integer.parseInt(tokens[1].substring(1)) < inst_mem.length) //Verifica se o endereÁo da instruÁao esta dentro do programa
+					return Integer.parseInt(tokens[1].substring(1)); //Retorna prÛxima instruÁ„o
 				
 		}
 		
-		System.out.println("\t\t\tN√£o ocorre desvio");
+		System.out.println("\t\t\tN„o ocorre desvio");
 		
-		return -1; //N√£o ocorre desvio
+		return -1; //N„o ocorre desvio
 	}
 	
-	/**Desvio (JUMP) quando ultima opera√ß√£o aritm√©tica for igual a 0**/
+	/**Desvio (JUMP) quando ultima operaÁ„o aritmÈtica for igual a 0**/
 	public int jumpp(String[] tokens){
 		
 		if(fp){ //Verifica a flag
-			if(tokens[1].charAt(0) == 'I')//Verifica se o endere√ßo da instru√ßao √© v√°lido
-				if(Integer.parseInt(tokens[1].substring(1)) < inst_mem.length) //Verifica se o endere√ßo da instru√ßao esta dentro do programa
-					return Integer.parseInt(tokens[1].substring(1)); //Retorna pr√≥xima instru√ß√£o
+			if(tokens[1].charAt(0) == 'I')//Verifica se o endereÁo da instruÁao È v·lido
+				if(Integer.parseInt(tokens[1].substring(1)) < inst_mem.length) //Verifica se o endereÁo da instruÁao esta dentro do programa
+					return Integer.parseInt(tokens[1].substring(1)); //Retorna prÛxima instruÁ„o
 				
 		}
 		
-		System.out.println("\t\t\tN√£o ocorre desvio");
+		System.out.println("\t\t\tN„o ocorre desvio");
 		
-		return -1; //N√£o ocorre desvio
+		return -1; //N„o ocorre desvio
 	}
 
 }
