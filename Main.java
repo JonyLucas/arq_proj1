@@ -22,13 +22,14 @@ public class Main {
 			//System.out.println(file_size);
 			
 			CPU cpu;
-			mem_data = new int[file_size];
 			mem_inst = new String[file_size];
 			
 			if(args.length == 0){
+				mem_data = new int[64]; //Tamanho padrão da memória de dados
 				cpu = new CPU(3, mem_data, mem_inst); //Por padrão é utilizado o 3 registradores
 			}else{
-				int nreg = Integer.parseInt(args[0]);
+				int nreg = Integer.parseInt(args[0]), mem_size = Integer.parseInt(args[1]);
+				mem_data = new int[mem_size];
 				cpu = new CPU(nreg, mem_data, mem_inst);
 			}
 			

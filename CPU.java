@@ -45,11 +45,11 @@ public class CPU {
 			if(res == 1)
 				break; //Instrução END, encerra o programa
 		}
-		System.out.println("\n\t\t================ END ================\n");
+		System.out.println("\n\t\t======================= END =======================\n");
 	}
 	
 	public void fetch(){
-		System.out.println("\t\t=============== FETCH ===============\n");
+		System.out.println("\t\t====================== FETCH ======================\n");
 
 		System.out.println("\t\t\t[MAR] <- [PC]: ");
 		mar = pc;
@@ -63,11 +63,11 @@ public class CPU {
 		pc++;
 		System.out.println("\t\t\t[PC] = " + "I" + pc + "\n");
 		
-		System.out.println("\n\t\t=====================================\n");
+		System.out.println("\n\t\t===================================================\n");
 	}
 	
 	public String[] decode(){
-		System.out.println("\n\t\t=============== DECODE ==============\n");
+		System.out.println("\n\t\t====================== DECODE =====================\n");
 		
 		int i = 1;
 		ir = mbr;
@@ -100,13 +100,13 @@ public class CPU {
 			i++;
 		}
 		
-		System.out.println("\n\n\t\t=====================================\n");
+		System.out.println("\n\n\t\t===================================================\n");
 		
 		return inst;
 	}
 	
 	public int exec(String[] instruct){
-		System.out.println("\n\t\t============== EXECUTE ==============\n");
+		System.out.println("\n\t\t===================== EXECUTE =====================\n");
 		switch(instruct[0]){
 		
 		case "STORE":
@@ -167,7 +167,7 @@ public class CPU {
 			System.out.println("\t\t\tErro: Operação inválida");
 		}
 		
-		System.out.println("\n\t\t=====================================\n");
+		System.out.println("\n\t\t===================================================\n");
 		return 0;
 	}
 

@@ -20,7 +20,7 @@ public class ControlUnity {
 	
 	public void store(String[] tokens){
 
-		System.out.println("\t\t\tSTORE" + tokens[1] + " " + tokens[2]);
+		System.out.println("\t\t\tSTORE " + tokens[1] + " " + tokens[2]);
 		int reg = Integer.parseInt(tokens[1].substring(1));
 		
 		if(reg > regs.length-1 && used_regs[reg] == false){
@@ -37,6 +37,10 @@ public class ControlUnity {
 		/**Execução da operação de armazenamento**/
 		
 		int dest = Integer.parseInt(tokens[2].substring(1));
+		if(dest > data_mem.length-1){
+			System.out.println("\t\t\tErro: Endereço fora do limite");
+			return;
+		}
 		data_mem[dest] = regs[reg];
 		used_mem[dest] = true;
 		System.out.println("\t\t\tResultado: (MEM)" + tokens[2] + " = " + data_mem[dest]);
@@ -311,7 +315,7 @@ public class ControlUnity {
 		if(operand.charAt(0) == 'M'){ //Caso seja um endereço na memoria de dados	
 			op = Integer.parseInt(operand.substring(1)); //Pega o valor do endereço
 			
-			if(used_mem[op]) //Verifica se o endereço possui algum dado
+			if(op < data_mem.length && used_mem[op]) //Verifica se o endereço está dentro da capacidade da memoria e se possui algum dado
 				op = data_mem[op];
 			else
 				throw new Exception("\t\t\tErro: Endereço da memória não utilizado");
@@ -352,7 +356,7 @@ public class ControlUnity {
 			fp = false;
 		}
 	}
-
+	
 	/**Desvio incondicional**/
 	public int jump(String[] tokens){
 		
