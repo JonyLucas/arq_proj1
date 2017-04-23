@@ -37,10 +37,13 @@ public class CPU {
 	
 	public void run(){
 		String[] tokens;
+		int res = 0;
 		while(pc < inst_mem.length && inst_mem[pc] != null){
 			fetch();
 			tokens = decode();
-			exec(tokens);
+			res = exec(tokens);
+			if(res == 1)
+				break; //Instrução END, encerra o programa
 		}
 		System.out.println("\n\t\t================ END ================\n");
 	}
@@ -102,7 +105,7 @@ public class CPU {
 		return inst;
 	}
 	
-	public void exec(String[] instruct){
+	public int exec(String[] instruct){
 		System.out.println("\n\t\t============== EXECUTE ==============\n");
 		switch(instruct[0]){
 		
@@ -128,7 +131,7 @@ public class CPU {
 		case "DIV":
 			cont_unity.div(instruct);
 			break;
-
+			
 		case "JUMP":
 			if(cont_unity.jump(instruct) >= 0){
 				pc = cont_unity.jump(instruct);
@@ -157,12 +160,15 @@ public class CPU {
 			}
 			break;
 			
+		case "END":
+			return 1;
+			
 		default:
 			System.out.println("\t\t\tErro: Operação inválida");
 		}
 		
 		System.out.println("\n\t\t=====================================\n");
+		return 0;
 	}
-
 
 }

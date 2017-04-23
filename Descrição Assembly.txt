@@ -24,6 +24,8 @@ JUMPN nInst
 JUMPP nInst
 JUMP nInst //Incondicional
 
+END
+
 //Depreciado
 MARK
 
